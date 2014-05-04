@@ -6,5 +6,6 @@ description      'Installs/Configures devenv'
 long_description 'Installs/Configures devenv'
 version          '0.1.0'
 
+depends "apt"
 depends "golang"
 depends "zsh"
