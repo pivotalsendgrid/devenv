@@ -1,1 +1,1 @@
-default['devenv']['users'] = %w(twhitney)
+default['devenv']['user'] = 'twhitney'
