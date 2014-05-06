@@ -16,6 +16,10 @@ magic_shell_environment 'GOPATH' do
   value "/home/#{username}/workspace/go"
 end
 
+magic_shell_environment 'GOROOT' do
+  value "/usr/local/go"
+end
+
 magic_shell_environment 'EDITOR' do
   value 'vim'
 end
@@ -45,6 +49,10 @@ bash "link dotfiles" do
       if [ ! -e '.tmux.conf' ]; then
         ln -s /home/#{username}/.dotfiles/.tmux.conf .tmux.conf
       fi
+
+      if [ ! -e '.dircolors' ]; then
+        ln -s /home/#{username}/.dotfiles/.dircolors .dircolors
+      fi
   LINK_DOTFILES
 end
 
@@ -55,7 +63,7 @@ git "/home/#{username}/.oh-my-zsh" do
   reference "master"
 end
 
-bash "link zshrc file" do
+bash "link zshrc and zprofile file" do
   user username
   group username
   cwd "/home/#{username}"
@@ -63,6 +71,10 @@ bash "link zshrc file" do
       echo "********* Linking Zshell Config **********"
       if [ ! -e '.zshrc' ]; then
         ln -s /home/#{username}/.oh-my-zsh/zshrc .zshrc
+      fi
+
+      if [ ! -e '.zprofile' ]; then
+        ln -s /home/#{username}/.oh-my-zsh/zprofile .zprofile
       fi
   LINK_DOTFILES
 end

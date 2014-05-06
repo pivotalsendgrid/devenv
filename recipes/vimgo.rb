@@ -8,10 +8,9 @@
 #
 username = node['devenv']['user']
 
-
 bash "copy vimgo binaries" do
-  user username
-  group username
+  user "root"
+  group "root"
   cwd "/home/#{username}/workspace/go"
   code <<-VIM_GO_BINARIES
     go get github.com/nsf/gocode
@@ -20,7 +19,14 @@ bash "copy vimgo binaries" do
     go get code.google.com/p/go.tools/cmd/oracle
     go get github.com/golang/lint/golint
     go get github.com/kisielk/errcheck
-    mkdir ~/.vim-go
-    cp bin/errcheck bin/gocode bin/goimports bin/godef bin/oracle bin/golint ~/.vim-go
+    mkdir /home/#{username}/.vim-go
+    which gocode
+    which goimports
+    which godef
+    which oracle
+    which golint
+    which errcheck
+    cp bin/errcheck bin/gocode bin/goimports bin/godef bin/oracle bin/golint \
+      /home/#{username}/.vim-go
   VIM_GO_BINARIES
 end
